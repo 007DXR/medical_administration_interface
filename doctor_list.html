@@ -1201,6 +1201,7 @@
 
 </html>
 <script>
+    var current_doctor_id='';
     var doctor_dict = {};
     function addDoctorList(doctor_data) {
         // console.log(doctor_data)
@@ -1209,11 +1210,12 @@
         tr.innerHTML = `
                     <td>`+ doctor_data['name'] + `</td>
                     <td>`+ doctor_data['hospital'] + `</td>
-                    <td> <div doctor-id=`+ doctor_data['doctor_id'] + `  class="doctor_info_button button">详情</div></td>
+                    <td> <div doctor-id=`+ doctor_data['doctor_id'] + ` id=doctor-id-`+doctor_data['doctor_id']+`  class="doctor_info_button button">详情</div></td>
                `;
-        tbody.appendChild(tr);
+        tbody.appendChild(tr);        
     }
     function updateDoctorInfoTable(doctor_id) {
+        current_doctor_id = doctor_id;
         document.getElementById('doctor-info').style.display = 'block';
         let doctor_info_table = document.getElementById('doctor-info-table')
 
@@ -1242,16 +1244,7 @@
 
     window.onload = function () {
 
-        const buttons = document.querySelectorAll('.doctor_info_button');
-        buttons.forEach(button => {
-            button.addEventListener('click', function (event) {
-                let doctor_id = event.target.getAttribute("doctor-id");
-                if (doctor_id !== null) {
-                    document.getElementById('doctor-list').style.display = 'none';
-                    updateDoctorInfoTable(doctor_id);
-                }
-            });
-        });
+        
         const back_button = document.getElementById('back-to-doctor-list');
         back_button.addEventListener('click', function () {
             document.getElementById('doctor-list').style.display = 'block';
@@ -1260,8 +1253,9 @@
         });
         const reject_button = document.getElementById('reject_button');
         reject_button.addEventListener('click', function () {
-            console.log("Click reject_button")
-            const data = { doctor_id: '1', reviestatus: 'reject' };
+            
+            const data = { doctor_id: current_doctor_id, reviestatus: 'reject' };
+            console.log(data)
             fetch('http://47.122.20.205:8000/updateinfo/', {
                 method: 'PUT',
                 headers: {
@@ -1276,13 +1270,13 @@
         });
         const pass_button = document.getElementById('pass_button');
         pass_button.addEventListener('click', function () {
-            const data = { doctor_id: '1', reviestatus: 'pass' };
+            const data = { doctor_id: current_doctor_id, reviestatus: 'pass' };
+            console.log(data)
             fetch('http://47.122.20.205:8000/updateinfo/', {
-                mode: 'no-cors',
+                // mode: 'no-cors',
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    // 'Access-Control-Allow-Origin':'*'
                 },
                 body: JSON.stringify(data)
             })
@@ -1296,15 +1290,23 @@
         doctor_dict = {}
         let doctor_list_tbody = document.getElementById('doctor-list-tbody');
         let doctor_list = doctor_list_tbody.getElementsByTagName('tr');
-
-        for (let i = 0; i < doctor_list.length; ++i) {
+        for (let i = doctor_list.length-1; i >=0 ; --i) {
             doctor_list_tbody.removeChild(doctor_list[i]);
         }
         for (let i in doctor_data) {
             doctor_dict[doctor_data[i]['doctor_id']] = doctor_data[i];
             addDoctorList(doctor_data[i]);
         }
-
+        const buttons = document.querySelectorAll('.doctor_info_button');
+        buttons.forEach(button => {
+            button.addEventListener('click', function (event) {
+                let doctor_id = event.target.getAttribute("doctor-id");
+                if (doctor_id !== null) {
+                    document.getElementById('doctor-list').style.display = 'none';
+                    updateDoctorInfoTable(doctor_id);
+                }
+            });
+        });
     }
     function getDoctorData() {
         // , { mode: 'no-cors' } 设置 CORS policy允许跨域请求
