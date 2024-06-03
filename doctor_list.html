@@ -1201,7 +1201,7 @@
 
 </html>
 <script>
-    var current_doctor_id='';
+    var current_doctor_id = 0;
     var doctor_dict = {};
     function addDoctorList(doctor_data) {
         // console.log(doctor_data)
@@ -1210,12 +1210,12 @@
         tr.innerHTML = `
                     <td>`+ doctor_data['name'] + `</td>
                     <td>`+ doctor_data['hospital'] + `</td>
-                    <td> <div doctor-id=`+ doctor_data['doctor_id'] + ` id=doctor-id-`+doctor_data['doctor_id']+`  class="doctor_info_button button">详情</div></td>
+                    <td> <div doctor-id=`+ doctor_data['doctor_id'] + ` id=doctor-id-` + doctor_data['doctor_id'] + `  class="doctor_info_button button">详情</div></td>
                `;
-        tbody.appendChild(tr);        
+        tbody.appendChild(tr);
     }
     function updateDoctorInfoTable(doctor_id) {
-        current_doctor_id = doctor_id;
+        current_doctor_id = Number(doctor_id);
         document.getElementById('doctor-info').style.display = 'block';
         let doctor_info_table = document.getElementById('doctor-info-table')
 
@@ -1244,7 +1244,7 @@
 
     window.onload = function () {
 
-        
+
         const back_button = document.getElementById('back-to-doctor-list');
         back_button.addEventListener('click', function () {
             document.getElementById('doctor-list').style.display = 'block';
@@ -1253,16 +1253,16 @@
         });
         const reject_button = document.getElementById('reject_button');
         reject_button.addEventListener('click', function () {
-            
-            const data = { doctor_id: current_doctor_id, reviestatus: 'reject' };
-            console.log(data)
-            fetch('http://47.122.20.205:8000/updateinfo/', {
+            // const data = { doctor_id: current_doctor_id, reviestatus: 2 };
+            // console.log(data)
+            fetch('http://47.122.20.205:8000/updateinfo?doctor_id=' + current_doctor_id + '&reviestatus=2', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(data)
+                // body: JSON.stringify(data)
             })
+                // fetch('http://47.122.20.205:8000/updateinfo?doctor_id='+current_doctor_id+'&reviestatus=2')
                 .then(response => response.json())
                 .then(data => console.log(data))
                 .catch(error => console.error(error));
@@ -1270,15 +1270,15 @@
         });
         const pass_button = document.getElementById('pass_button');
         pass_button.addEventListener('click', function () {
-            const data = { doctor_id: current_doctor_id, reviestatus: 'pass' };
-            console.log(data)
-            fetch('http://47.122.20.205:8000/updateinfo/', {
+            // const data = { doctor_id: current_doctor_id, reviestatus: 1 };
+            // console.log(data)
+            fetch('http://47.122.20.205:8000/updateinfo?doctor_id=' + current_doctor_id + '&reviestatus=1', {
                 // mode: 'no-cors',
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(data)
+                // body: JSON.stringify(data)
             })
                 .then(response => response.json())
                 .then(data => console.log(data))
@@ -1290,7 +1290,8 @@
         doctor_dict = {}
         let doctor_list_tbody = document.getElementById('doctor-list-tbody');
         let doctor_list = doctor_list_tbody.getElementsByTagName('tr');
-        for (let i = doctor_list.length-1; i >=0 ; --i) {
+        // 注意：必须倒序删除，不能正序删除
+        for (let i = doctor_list.length - 1; i >= 0; --i) {
             doctor_list_tbody.removeChild(doctor_list[i]);
         }
         for (let i in doctor_data) {
@@ -1342,7 +1343,6 @@
     //     "hospital_level": 2,
     //     "province": "Guangdong",
     //     "phone": "123456789"
-
     // }
     // ]);
 </script>
