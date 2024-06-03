@@ -1307,7 +1307,8 @@
 
     }
     function getDoctorData() {
-        fetch('http://47.122.20.205:8000/doctorinfo/', { mode: 'no-cors' })
+        // , { mode: 'no-cors' } 设置 CORS policy允许跨域请求
+        fetch('http://47.122.20.205:8000/doctorinfo/')
             .then(response => response.json())
             .then(data => {
                 console.log(data);
@@ -1319,27 +1320,27 @@
     }
     // getDoctorData();
     // 开启服务时，注释掉以下句子，取消注释getDoctorData();
-    updateDoctorData([{
-        "doctor_id": 1,
-        "name": "Dr. John Doe",
-        "sex": "M",
-        "title": "junior doctor",
-        "hospital": "St. Mary's Hospital",
-        "hospital_level": 2,
-        "province": "Guangdong",
-        "phone": "123456789"
+    // updateDoctorData([{
+    //     "doctor_id": 1,
+    //     "name": "Dr. John Doe",
+    //     "sex": "M",
+    //     "title": "junior doctor",
+    //     "hospital": "St. Mary's Hospital",
+    //     "hospital_level": 2,
+    //     "province": "Guangdong",
+    //     "phone": "123456789"
 
-    },
-    {
-        "doctor_id": 2,
-        "name": "Dr. John Doe",
-        "sex": "M",
-        "title": "junior doctor",
-        "hospital": "St. Mary's Hospital",
-        "hospital_level": 2,
-        "province": "Guangdong",
-        "phone": "123456789"
+    // },
+    // {
+    //     "doctor_id": 2,
+    //     "name": "Dr. John Doe",
+    //     "sex": "M",
+    //     "title": "junior doctor",
+    //     "hospital": "St. Mary's Hospital",
+    //     "hospital_level": 2,
+    //     "province": "Guangdong",
+    //     "phone": "123456789"
 
-    }
-    ]);
+    // }
+    // ]);
 </script>
