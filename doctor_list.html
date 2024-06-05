@@ -1243,8 +1243,6 @@
     }
 
     window.onload = function () {
-
-
         const back_button = document.getElementById('back-to-doctor-list');
         back_button.addEventListener('click', function () {
             document.getElementById('doctor-list').style.display = 'block';
@@ -1255,7 +1253,7 @@
         reject_button.addEventListener('click', function () {
             // const data = { doctor_id: current_doctor_id, reviestatus: 2 };
             // console.log(data)
-            fetch('http://47.122.20.205:8000/updateinfo?doctor_id=' + current_doctor_id + '&reviestatus=2', {
+            fetch('http://47.122.20.205:8000/updateinfo?doctor_id=' + current_doctor_id + '&reviestatus=3', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
@@ -1264,15 +1262,17 @@
             })
                 // fetch('http://47.122.20.205:8000/updateinfo?doctor_id='+current_doctor_id+'&reviestatus=2')
                 .then(response => response.json())
-                .then(data => console.log(data))
+                .then(data => {
+                    console.log(data);
+                    back_button.click();
+                })
                 .catch(error => console.error(error));
-            back_button.click();
         });
         const pass_button = document.getElementById('pass_button');
         pass_button.addEventListener('click', function () {
             // const data = { doctor_id: current_doctor_id, reviestatus: 1 };
             // console.log(data)
-            fetch('http://47.122.20.205:8000/updateinfo?doctor_id=' + current_doctor_id + '&reviestatus=1', {
+            fetch('http://47.122.20.205:8000/updateinfo?doctor_id=' + current_doctor_id + '&reviestatus=2', {
                 // mode: 'no-cors',
                 method: 'PUT',
                 headers: {
@@ -1281,9 +1281,11 @@
                 // body: JSON.stringify(data)
             })
                 .then(response => response.json())
-                .then(data => console.log(data))
+                .then(data => {
+                    console.log(data);
+                    back_button.click();
+                })
                 .catch(error => console.error(error));
-            back_button.click();
         });
     }
     function updateDoctorData(doctor_data) {
