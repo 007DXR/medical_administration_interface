@@ -1203,6 +1203,16 @@
 <script>
     var current_doctor_id = 0;
     var doctor_dict = {};
+    const key_mapping = { "doctor_id": "医生编号", "name": "医生姓名", "sex": "性别", "title": "医生职称", "hospital": "医院名称", "hospital_level": "医院级别", "province": "省份", "phone": "联系方式" }
+    const sex_mapping = { 1: "男", 2: "女" }
+    const title_mapping = { 0: "住院医师", 1: "主治医师", 2: "副主任医师", 3: "主任医师", 4: "护士", 5: "护师", 6: "主管护师" }
+    const level_mapping = { 1: "一级", 2: "二级", 3: "三级" }
+    const value_mapping = {
+        "sex": sex_mapping,
+        "title": title_mapping,
+        "hospital_level": level_mapping
+    }
+
     function addDoctorList(doctor_data) {
         // console.log(doctor_data)
         let tbody = document.getElementById('doctor-list-tbody');
@@ -1225,8 +1235,8 @@
         for (let key in doctor_data) {
             let tr = document.createElement('tr');
             tr.innerHTML = `
-              <td>`+ key + `</td>
-              <td>`+ doctor_data[key] + `</td>
+              <td>`+ key_mapping[key] + `</td>
+              <td>`+ (key in value_mapping ? value_mapping[key][doctor_data[key]] : doctor_data[key]) + `</td>
               `
             tbody.appendChild(tr);
         }
@@ -1328,21 +1338,10 @@
     // updateDoctorData([{
     //     "doctor_id": 1,
     //     "name": "Dr. John Doe",
-    //     "sex": "M",
-    //     "title": "junior doctor",
+    //     "sex": 2,    //女
+    //     "title": 2,  //副主任医师
     //     "hospital": "St. Mary's Hospital",
-    //     "hospital_level": 2,
-    //     "province": "Guangdong",
-    //     "phone": "123456789"
-
-    // },
-    // {
-    //     "doctor_id": 2,
-    //     "name": "Dr. John Doe",
-    //     "sex": "M",
-    //     "title": "junior doctor",
-    //     "hospital": "St. Mary's Hospital",
-    //     "hospital_level": 2,
+    //     "hospital_level": 2, //
     //     "province": "Guangdong",
     //     "phone": "123456789"
     // }
