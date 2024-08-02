@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>PI端-深静脉置管相关血栓风险智能预测系统副本</title>
+    <script>if (
+            function () {
+                try {
+                    eval([
+                        'for (const a of []) {}',
+                        'let b = { fetch, Proxy }'
+                    ].join(';'))
+                } catch (e) { console.log('!!', e); return true }
+            }()
+        ) location.href = "/browser-update"</script>
+
+<script src="js/jquery-3.5.1.min.js"></script>
+<script defer="defer" src="js/modao_script.js"></script>
+<script defer="defer" src="js/action.js"></script>
+<script defer="defer" src="js/left_sidebar.js"></script>
+<link href="modao_style.css" rel="stylesheet">
+<style data-styled="active" data-styled-version="5.3.11"></style>
+</head>
+
+<body>
+<div class="screen-content">
+    <div class="widgets" style=" left: 0px; top: 0px;">
+        <div class="scontainer" style=" margin-top: 0px;"><img
+                class="SketchArtboardImage__StyledImage-sc-1b0ohq7-0 eGDJKE artboard-image" src="">
+            <div data-cid="slup0zf46xrkfcs" data-link_cid="" class="tree-node"
+                style=" overflow: scroll;; position: absolute; top: 0px; width: 100%; min-width: 960px; height:100%;left: 0px; opacity: 1; transform-origin: 720px 512px;">
+
+                <div class="header"></div>
+                <div class="left-sidebar"></div>
+                    <div data-cid="ilup0jaacc55r41" data-link_cid="" class="tree-node"
+                        style="position: absolute; width: 60%; top: 90px;left: 400px; z-index: 189; opacity: 1; ">
+                        <div id="doctor-info" style="display: none; ">
+                            <!-- <div id="back-to-doctor-list" class="doctor_info_button button"
+                                style="position: absolute; top: 18px; left: 300px; z-index: 208;">
+                                返回
+                            </div> -->
+                            <table id="doctor-info-table" style="width: 100%">
+                                <colgroup>
+                                    <col style="width: 50%;">
+                                    <col style="width: 50%;">
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <td>Cell 1</td>
+                                        <td>Cell 2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cell 3</td>
+                                        <td>Cell 4</td>
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td>
+                                        <div id="reject_button">拒绝</div>
+                                    </td>
+                                    <td>
+                                        <div id="pass_button">通过</div>
+                                    </td>
+                                    <td>
+                                        <div id="back-to-doctor-list" class="doctor_info_button">
+                                            返回
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div id="doctor-list" >
+
+                            <table style="position: absolute; width: 100%;">
+                                <!-- class="jexcel jexcel_hidden_index" -->
+                                <!-- <thead class="resizable ">
+                                                    <tr>
+                                                        <td class="jexcel_selectall"></td>
+                                                        <td data-x="0" style="font-size: 20px; padding: 10px;">待审核医护列表</td>
+                                                    </tr>
+                                                </thead> -->
+                                <tbody id="doctor-list-tbody" class="default">
+                                    <!-- <tr>
+                                        <td>医护人员2</td>
+                                        <td>a医院 </td>
+                                        <td>
+                                            <div doctor-id="122" class="doctor_info_button button">
+                                                详情
+                                            </div>
+                                        </td>
+                                    </tr> -->
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script>
+    $(".left-sidebar").load("http://localhost:8000/left_sidebar.html");
+    $(".header").load("http://localhost:8000/header.html");
+    window.onload = function () {
+        document.querySelector('[data-link_cid="doctor_link"]').classList.add("selected");
+        document.querySelector('[data-link_cid="unchecked_doctor_link"]').classList.add("selected");
+        const back_button = document.getElementById('back-to-doctor-list');
+        back_button.addEventListener('click', function () {
+            document.getElementById('doctor-list').style.display = 'block';
+            document.getElementById('doctor-info').style.display = 'none';
+            getDoctorData(is_checked=false);
+        });
+        const reject_button = document.getElementById('reject_button');
+        reject_button.addEventListener('click', function () {
+            // const data = { doctor_id: current_doctor_id, reviestatus: 2 };
+            // console.log(data)
+            fetch('http://47.122.20.205:8000/updateinfo?doctor_id=' + current_doctor_id + '&reviestatus=3', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                // body: JSON.stringify(data)
+            })
+                // fetch('http://47.122.20.205:8000/updateinfo?doctor_id='+current_doctor_id+'&reviestatus=2')
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    back_button.click();
+                })
+                .catch(error => console.error(error));
+        });
+        const pass_button = document.getElementById('pass_button');
+        pass_button.addEventListener('click', function () {
+            // const data = { doctor_id: current_doctor_id, reviestatus: 1 };
+            // console.log(data)
+            fetch('http://47.122.20.205:8000/updateinfo?doctor_id=' + current_doctor_id + '&reviestatus=2', {
+                // mode: 'no-cors',
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                // body: JSON.stringify(data)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    back_button.click();
+                })
+                .catch(error => console.error(error));
+        });
+        getDoctorData(is_checked=false);
+    }
+
+</script>

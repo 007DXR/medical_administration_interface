@@ -13449,6 +13449,7 @@ li.menuItem.canClickableHighWidget.selected{
 li.menuItem.canClickableHighWidget{
   color: rgb(154, 154, 154)
 }
-/*# sourceMappingURL=preview-related-e46ec67f1622171ffa54.css.map*/
-  
-  /*# sourceMappingURL=7.fs2df-vendor-63d92c18de1af7341fda.css.map*/
+
+.content.clickable.selected{
+  color: rgb(255, 255, 255)
+}

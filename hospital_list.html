@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>PI端-深静脉置管相关血栓风险智能预测系统副本</title>
+    <script>if (
+            function () {
+                try {
+                    eval([
+                        'for (const a of []) {}',
+                        'let b = { fetch, Proxy }'
+                    ].join(';'))
+                } catch (e) { console.log('!!', e); return true }
+            }()
+        ) location.href = "/browser-update"</script>
+
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <script defer="defer" src="js/modao_script.js"></script>
+    <script defer="defer" src="js/action.js"></script>
+    <script defer="defer" src="js/left_sidebar.js"></script>
+    <link href="modao_style.css" rel="stylesheet">
+    <style data-styled="active" data-styled-version="5.3.11"></style>
+</head>
+
+<body>
+    <div class="screen-content">
+        <div class="widgets" style=" left: 0px; top: 0px;">
+            <div class="scontainer" style=" margin-top: 0px;"><img
+                    class="SketchArtboardImage__StyledImage-sc-1b0ohq7-0 eGDJKE artboard-image" src="">
+                <div data-cid="slup0zf46xrkfcs" data-link_cid="" class="tree-node"
+                    style=" overflow: scroll;; position: absolute; top: 0px; width: 100%; min-width: 960px; height:100%;left: 0px; opacity: 1; transform-origin: 720px 512px;">
+
+                    <div class="header"></div>
+                    <div class="left-sidebar"></div>
+
+                    <div id="hospital-list"
+                        style="position: absolute;width: 60%;top: 90px;left: 400px; z-index: 189; opacity: 1; ">
+
+                        <table style="position: absolute; width: 100%;">
+                            <colgroup>
+                                <col style="width: 67%;">
+                                <col style="width: 33%;">
+                                
+                            
+                            </colgroup>
+                            <tbody id="hospital-list-tbody" class="default">
+                                <tr>
+                                    <td style="font-weight: bolder;">医院</td>
+                                    <td style="font-weight: bolder;">医护人员数</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script>
+    $(".left-sidebar").load("http://localhost:8000/left_sidebar.html");
+    $(".header").load("http://localhost:8000/header.html");
+    window.onload = function () {
+        document.querySelector('[data-link_cid="hospital_list_link"]').classList.add("selected");
+        getHospitalData();
+    }
+
+</script>
