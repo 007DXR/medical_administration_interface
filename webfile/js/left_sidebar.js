@@ -1,7 +1,7 @@
 // var is_checked = false;
 document.querySelector('[data-link_cid="homepage_link"]').addEventListener('click', function () {
     console.log('Element clicked!');
-    window.location.href = "homepage.html";
+    window.location.href = "index.html";
 });
 document.querySelector('[data-link_cid="hospital_list_link"]').addEventListener('click', function () {
     console.log('hospital_list_link clicked!');
